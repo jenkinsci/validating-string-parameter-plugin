@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>1.318</version>
+    <version>1.321</version>
   </parent>
   <artifactId>validating-string-parameter</artifactId>
   <packaging>hpi</packaging>
