@@ -1,0 +1,22 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>org.jvnet.hudson.plugins</groupId>
+    <artifactId>plugin</artifactId>
+    <version>1.318</version>
+  </parent>
+  <artifactId>validating-string-parameter</artifactId>
+  <packaging>hpi</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <url>http://hudson.gotdns.com/wiki/display/HUDSON/Validating+String+Parameter+Plugin</url>
+  <developers>
+  	<developer>
+  		<id>petehayes</id>
+  		<name>Peter Hayes</name>
+  		<email>petehayes@gmail.com</email>
+  		<url>http://spiffysspace.blogspot.com/</url>
+  		<timezone>-6</timezone>
+  	</developer>
+  </developers>
+</project>
