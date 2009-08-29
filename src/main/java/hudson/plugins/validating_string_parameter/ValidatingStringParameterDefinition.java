@@ -1,10 +1,8 @@
 package hudson.plugins.validating_string_parameter;
 
 import hudson.Extension;
-import hudson.model.AbstractProject;
 import hudson.model.ParameterDefinition;
 import hudson.model.ParameterValue;
-import hudson.model.Project;
 import hudson.model.StringParameterValue;
 import hudson.util.FormValidation;
 
@@ -26,7 +24,9 @@ import org.kohsuke.stapler.StaplerRequest;
  * @see {@link ParameterDefinition}
  */
 public class ValidatingStringParameterDefinition extends ParameterDefinition {
-    private String defaultValue;
+	private static final long serialVersionUID = 1L;
+	
+	private String defaultValue;
     private String regex;
     private String failedValidationMessage;
 
@@ -59,25 +59,8 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
         return v;
     }
     
-    public Project getProject(StaplerRequest request) {
-    	return request.findAncestorObject(Project.class);
-    }
-    
-    /**
-     * Called to validate the passed user entered value against the configured regular expression.
-     */
-    public FormValidation doValidate(@QueryParameter("value") final String value) {
-    	try {
-    		if (Pattern.matches(regex, value)) {
-    			return FormValidation.ok();
-    		} else {
-    			return failedValidationMessage == null || "".equals(failedValidationMessage) ?
-    					FormValidation.error("Value entered does not match regular expression: " + regex)
-    					: FormValidation.error(failedValidationMessage);
-    		}
-    	} catch (PatternSyntaxException pse) {
-    		return FormValidation.error("Invalid regular expression [" + regex + "]: " + pse.getDescription());
-    	}
+    public String encode(String value) {
+    	return value != null ? value.replace("+", "%2B") : null;
     }
 
     @Extension
@@ -92,12 +75,34 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
             return "/plugin/validating-string-parameter/help.html";
         }
         
+        /**
+         * Chcek the regular expression entered by the user
+         */
         public FormValidation doCheckRegex(@QueryParameter final String value) {
         	try {
         		Pattern.compile(value);
         		return FormValidation.ok();
         	} catch (PatternSyntaxException pse) {
         		return FormValidation.error("Invalid regular expression: " + pse.getDescription());
+        	}
+        }
+        
+        /**
+         * Called to validate the passed user entered value against the configured regular expression.
+         */
+        public FormValidation doValidate(@QueryParameter("regex") String regex, 
+        		@QueryParameter("failedValidationMessage") final String failedValidationMessage,
+        		@QueryParameter("value") final String value) {
+        	try {
+        		if (Pattern.matches(regex, value)) {
+        			return FormValidation.ok();
+        		} else {
+        			return failedValidationMessage == null || "".equals(failedValidationMessage) ?
+        					FormValidation.error("Value entered does not match regular expression: " + regex)
+        					: FormValidation.error(failedValidationMessage);
+        		}
+        	} catch (PatternSyntaxException pse) {
+        		return FormValidation.error("Invalid regular expression [" + regex + "]: " + pse.getDescription());
         	}
         }
     }
@@ -119,6 +124,4 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
         } else 
         	return new StringParameterValue(getName(), value[0], getDescription());
 	}
-
-
 }
