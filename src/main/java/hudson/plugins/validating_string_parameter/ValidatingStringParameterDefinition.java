@@ -58,10 +58,6 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
         StringParameterValue v = new StringParameterValue(getName(), defaultValue, getDescription());
         return v;
     }
-    
-    public String encode(String value) {
-    	return value != null ? value.replace("+", "%2B") : null;
-    }
 
     @Extension
     public static class DescriptorImpl extends ParameterDescriptor {
