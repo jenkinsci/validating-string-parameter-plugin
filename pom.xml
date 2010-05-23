@@ -9,7 +9,7 @@
   <artifactId>validating-string-parameter</artifactId>
   <packaging>hpi</packaging>
   <name>Validating String Parameter Plugin</name>
-  <version>1.4-SNAPSHOT</version>
+  <version>1.3-SNAPSHOT</version>
   <url>http://hudson.gotdns.com/wiki/display/HUDSON/Validating+String+Parameter+Plugin</url>
   <developers>
   	<developer>
