@@ -29,7 +29,7 @@ THE SOFTWARE.
 		<div name="parameter" description="${it.description}">
 			<input type="hidden" name="name" value="${it.name}" />
 			<f:textbox name="value" value="${it.defaultValue}" 
-				checkUrl="'${rootUrl}/descriptor/hudson.plugins.validating_string_parameter.ValidatingStringParameterDefinition/validate?regex='+encodeURIComponent(&quot;${it.regex}&quot;)+'&amp;failedValidationMessage='+encodeURIComponent(&quot;${it.failedValidationMessage}&quot;)+'&amp;value='+encodeURIComponent(this.value)"/>
+				checkUrl="'${it.rootUrl}/descriptor/hudson.plugins.validating_string_parameter.ValidatingStringParameterDefinition/validate?regex='+encodeURIComponent(&quot;${it.regex}&quot;)+'&amp;failedValidationMessage='+encodeURIComponent(&quot;${it.failedValidationMessage}&quot;)+'&amp;value='+encodeURIComponent(this.value)"/>
 		</div>
 	</f:entry>
 </j:jelly>

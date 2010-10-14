@@ -1,9 +1,9 @@
 package hudson.plugins.validating_string_parameter;
 
 import hudson.Extension;
+import hudson.model.Hudson;
 import hudson.model.ParameterDefinition;
 import hudson.model.ParameterValue;
-import hudson.model.StringParameterValue;
 import hudson.util.FormValidation;
 
 import java.util.regex.Pattern;
@@ -52,6 +52,10 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
 
     public String getFailedValidationMessage() {
         return failedValidationMessage;
+    }
+
+    public String getRootUrl() {
+        return Hudson.getInstance().getRootUrlFromRequest();
     }
 
     public ValidatingStringParameterValue getDefaultParameterValue() {
