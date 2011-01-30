@@ -55,7 +55,7 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
     }
 
     public String getRootUrl() {
-        return Hudson.getInstance().getRootUrlFromRequest();
+        return Hudson.getInstance().getRootUrl();
     }
 
     public ValidatingStringParameterValue getDefaultParameterValue() {
