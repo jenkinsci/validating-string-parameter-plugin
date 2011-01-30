@@ -4,13 +4,19 @@
   <parent>
     <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>1.353</version>
+    <version>1.394</version>
   </parent>
   <artifactId>validating-string-parameter</artifactId>
   <packaging>hpi</packaging>
   <name>Validating String Parameter Plugin</name>
   <version>1.5-SNAPSHOT</version>
-  <url>http://hudson.gotdns.com/wiki/display/HUDSON/Validating+String+Parameter+Plugin</url>
+  <url>http://wiki.hudson-ci.org/display/HUDSON/Validating+String+Parameter+Plugin</url>
+
+  <scm>
+   <connection>scm:git:git://github.com/hudson/validating-string-parameter-plugin.git</connection>
+   <developerConnection>scm:git:git@github.com:hudson/validating-string-parameter-plugin.git</developerConnection>
+  </scm>
+
   <developers>
   	<developer>
   		<id>petehayes</id>
