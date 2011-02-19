@@ -13,8 +13,9 @@
   <url>http://wiki.jenkins-ci.org/display/JENKINS/Validating+String+Parameter+Plugin</url>
 
   <scm>
-   <connection>scm:git:git://github.com/hudson/validating-string-parameter-plugin.git</connection>
-   <developerConnection>scm:git:git@github.com:hudson/validating-string-parameter-plugin.git</developerConnection>
+   <connection>scm:git:git://github.com/jenkinsci/validating-string-parameter-plugin.git</connection>
+   <developerConnection>scm:git:git@github.com:jenkinsci/validating-string-parameter-plugin.git</developerConnection>
+    <url>http://github.com/jenkinsci/validating-string-parameter-pluginn</url>
   </scm>
 
   <developers>
