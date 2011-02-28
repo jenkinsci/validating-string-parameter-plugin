@@ -135,9 +135,6 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
     @Override
     public ParameterValue createValue(StaplerRequest req, JSONObject jo) {
         ValidatingStringParameterValue value = req.bindJSON(ValidatingStringParameterValue.class, jo);
-        if (!Pattern.matches(regex, value.getValue())) {
-            throw new IllegalArgumentException(value.getValue() + " is not a valid value for " + value.getName());
-        }
         value.setDescription(getDescription());
         value.setRegex(regex);
         return value;
@@ -146,12 +143,8 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
     @Override
     public ParameterValue createValue(StaplerRequest req) {
         String[] value = req.getParameterValues(getName());
-        if (value == null) {
+        if (value == null || value.length < 1) {
             return getDefaultParameterValue();
-        } else if (value.length != 1) {
-            throw new IllegalArgumentException("Illegal number of parameter values for " + getName() + ": " + value.length);
-        } else if (!Pattern.matches(regex, value[0])) {
-            throw new IllegalArgumentException(value[0] + " is not a valid value for " + getName());
         } else {
             return new ValidatingStringParameterValue(getName(), value[0], regex, getDescription());
         }

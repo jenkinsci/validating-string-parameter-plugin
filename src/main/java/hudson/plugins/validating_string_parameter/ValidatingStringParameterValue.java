@@ -23,7 +23,14 @@
  */
 package hudson.plugins.validating_string_parameter;
 
+import hudson.AbortException;
+import hudson.Launcher;
+import hudson.model.AbstractBuild;
+import hudson.model.BuildListener;
 import hudson.model.StringParameterValue;
+import hudson.tasks.BuildWrapper;
+import java.io.IOException;
+import java.util.regex.Pattern;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
@@ -55,6 +62,21 @@ public class ValidatingStringParameterValue extends StringParameterValue {
 
     public String getValue() {
         return value;
+    }
+
+    @Override
+    public BuildWrapper createBuildWrapper(AbstractBuild<?, ?> build) {
+        if (!Pattern.matches(regex, value)) {
+            // abort the build within BuildWrapper
+            return new BuildWrapper() {
+                @Override
+                public Environment setUp(AbstractBuild build, Launcher launcher, BuildListener listener) throws IOException, InterruptedException {
+                    throw new AbortException("Invalid value for parameter [" + getName() + "] specified: " + value);
+                }
+            };
+        } else {
+            return null;
+        }
     }
 
     @Override
