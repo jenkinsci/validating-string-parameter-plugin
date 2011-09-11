@@ -73,6 +73,10 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
         return regex;
     }
 
+    public String getJsEncodedRegex() {
+        return regex.replace("\\", "\\\\");
+    }
+
     public String getFailedValidationMessage() {
         return failedValidationMessage;
     }
