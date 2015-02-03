@@ -27,18 +27,18 @@ THE SOFTWARE.
 	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
 	xmlns:i="jelly:fmt" xmlns:p="/lib/hudson/project">
     <f:entry title="${%Name}" help="/help/parameter/name.html">
-		<f:textbox name="parameter.name" value="${instance.name}" />
+		<f:textbox field="name" />
 	</f:entry>
 	<f:entry title="${%Default Value}" help="/help/parameter/string-default.html">
-		<f:textbox name="parameter.defaultValue" value="${instance.defaultValue}" />
+		<f:textbox field="defaultValue" />
 	</f:entry>
 	<f:entry title="${%Regular Expression}" help="/plugin/validating-string-parameter/help-regex.html">
-		<f:textbox name="parameter.regex" value="${instance.regex}" />
+		<f:textbox field="regex" />
 	</f:entry>
 	<f:entry title="${%Failed Validation Message}" help="/plugin/validating-string-parameter/help-failedValidationMessage.html">
-		<f:textbox name="parameter.failedValidationMessage" value="${instance.failedValidationMessage}" />
+		<f:textbox field="failedValidationMessage" />
 	</f:entry>
     <f:entry title="${%Description}" help="/help/parameter/description.html">
-        <f:textarea name="parameter.description" value="${instance.description}" codemirror-mode="${app.markupFormatter.codeMirrorMode}" codemirror-config="${app.markupFormatter.codeMirrorConfig}" previewEndpoint="/markupFormatter/previewDescription" />
+        <f:textarea field="description" codemirror-mode="${app.markupFormatter.codeMirrorMode}" codemirror-config="${app.markupFormatter.codeMirrorConfig}" previewEndpoint="/markupFormatter/previewDescription" />
     </f:entry>
 </j:jelly>
