@@ -33,10 +33,10 @@ THE SOFTWARE.
 		<f:textbox field="defaultValue" />
 	</f:entry>
 	<f:entry title="${%Regular Expression}" help="/plugin/validating-string-parameter/help-regex.html">
-		<f:textbox field="regex"/>
+		<f:textbox field="regex" />
 	</f:entry>
 	<f:entry title="${%Failed Validation Message}" help="/plugin/validating-string-parameter/help-failedValidationMessage.html">
-		<f:textbox field="failedValidationMessage"/>
+		<f:textbox field="failedValidationMessage" />
 	</f:entry>
     <f:entry title="${%Description}" help="/help/parameter/description.html">
         <f:textarea field="description" codemirror-mode="${app.markupFormatter.codeMirrorMode}" codemirror-config="${app.markupFormatter.codeMirrorConfig}" previewEndpoint="/markupFormatter/previewDescription" />
