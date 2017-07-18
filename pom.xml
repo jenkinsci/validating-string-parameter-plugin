@@ -9,7 +9,7 @@
   <artifactId>validating-string-parameter</artifactId>
   <packaging>hpi</packaging>
   <name>Validating String Parameter Plugin</name>
-  <version>2.5-SNAPSHOT</version>
+  <version>2.4-SNAPSHOT</version>
   <url>http://wiki.jenkins-ci.org/display/JENKINS/Validating+String+Parameter+Plugin</url>
 
   <scm>
@@ -27,7 +27,6 @@
       <timezone>-6</timezone>
     </developer>
   </developers>
-
 
   <repositories>
     <repository>
@@ -51,6 +50,4 @@
       </plugin>
     </plugins>
   </build>
-</project>  
-
-
+</project>
