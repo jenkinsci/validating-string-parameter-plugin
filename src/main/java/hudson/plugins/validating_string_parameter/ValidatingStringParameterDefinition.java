@@ -28,15 +28,13 @@ import hudson.model.Hudson;
 import hudson.model.ParameterDefinition;
 import hudson.model.ParameterValue;
 import hudson.util.FormValidation;
-
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
 import net.sf.json.JSONObject;
-
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
+
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * String based parameter that supports setting a regular expression to validate the
@@ -44,7 +42,7 @@ import org.kohsuke.stapler.StaplerRequest;
  * 
  * @author Peter Hayes
  * @since 1.0
- * @see {@link ParameterDefinition}
+ * @see ParameterDefinition
  */
 public class ValidatingStringParameterDefinition extends ParameterDefinition {
 
@@ -106,6 +104,9 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
 
         /**
          * Chcek the regular expression entered by the user
+         *
+         * @param value the validation regex
+         * @return whether the regex is valid or not
          */
         public FormValidation doCheckRegex(@QueryParameter final String value) {
             try {
@@ -118,6 +119,11 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
 
         /**
          * Called to validate the passed user entered value against the configured regular expression.
+         *
+         * @param regex the regex
+         * @param failedValidationMessage message to display when validation fails
+         * @param value the value to be validated
+         * @return whether the value is valid according to the specified regex
          */
         public FormValidation doValidate(@QueryParameter("regex") String regex,
                 @QueryParameter("failedValidationMessage") final String failedValidationMessage,

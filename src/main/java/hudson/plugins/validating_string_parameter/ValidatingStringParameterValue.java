@@ -24,17 +24,20 @@
 package hudson.plugins.validating_string_parameter;
 
 import hudson.AbortException;
+import hudson.EnvVars;
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
+import hudson.model.Run;
 import hudson.model.StringParameterValue;
 import hudson.tasks.BuildWrapper;
-import java.io.IOException;
-import java.util.regex.Pattern;
 import org.kohsuke.stapler.DataBoundConstructor;
 
+import java.io.IOException;
+import java.util.regex.Pattern;
+
 /**
- * {@link ParameterValue} created from {@link ValidatingStringParameterDefinition}.
+ * {@link hudson.model.ParameterValue} created from {@link ValidatingStringParameterDefinition}.
  *
  * @author Peter Hayes
  * @since 1.0
@@ -73,9 +76,23 @@ public class ValidatingStringParameterValue extends StringParameterValue {
                 public Environment setUp(AbstractBuild build, Launcher launcher, BuildListener listener) throws IOException, InterruptedException {
                     throw new AbortException("Invalid value for parameter [" + getName() + "] specified: " + value);
                 }
+
+                @Override
+                public Launcher decorateLauncher(AbstractBuild build, Launcher launcher, BuildListener listener) throws IOException, InterruptedException, Run.RunnerAbortedException {
+                    throw new AbortException("Invalid value for parameter [" + getName() + "] specified: " + value);
+                }
             };
         } else {
             return null;
+        }
+    }
+
+    @Override
+    public void buildEnvironment(Run<?, ?> build, EnvVars env) {
+        if (!Pattern.matches(regex, value)) {
+            throw new Run.RunnerAbortedException();
+        } else {
+            super.buildEnvironment(build, env);
         }
     }
 
@@ -95,7 +112,7 @@ public class ValidatingStringParameterValue extends StringParameterValue {
         if (!super.equals(obj)) {
             return false;
         }
-        if (ValidatingStringParameterValue.class != obj.getClass()) {
+        if (this.getClass() != obj.getClass()) {
             return false;
         }
         ValidatingStringParameterValue other = (ValidatingStringParameterValue) obj;
