@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>1.532.3</version>
+    <version>2.32</version>
   </parent>
   <artifactId>validating-string-parameter</artifactId>
   <packaging>hpi</packaging>
@@ -28,11 +28,10 @@
     </developer>
   </developers>
 
-
   <repositories>
     <repository>
       <id>repo.jenkins-ci.org</id>
-      <url>http://repo.jenkins-ci.org/public/</url>
+      <url>https://repo.jenkins-ci.org/public/</url>
     </repository>
   </repositories>
 
@@ -51,6 +50,4 @@
       </plugin>
     </plugins>
   </build>
-</project>  
-
-
+</project>
