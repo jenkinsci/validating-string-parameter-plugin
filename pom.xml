@@ -1,56 +1,64 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.jenkins-ci.plugins</groupId>
-    <artifactId>plugin</artifactId>
-    <version>1.532.3</version>
-  </parent>
-  <artifactId>validating-string-parameter</artifactId>
-  <packaging>hpi</packaging>
-  <name>Validating String Parameter Plugin</name>
-  <version>2.4-SNAPSHOT</version>
-  <url>http://wiki.jenkins-ci.org/display/JENKINS/Validating+String+Parameter+Plugin</url>
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>3.5</version>
+    </parent>
+    <artifactId>validating-string-parameter</artifactId>
+    <packaging>hpi</packaging>
+    <name>Validating String Parameter Plugin</name>
+    <version>2.4-SNAPSHOT</version>
+    <url>http://wiki.jenkins-ci.org/display/JENKINS/Validating+String+Parameter+Plugin</url>
 
-  <scm>
-    <connection>scm:git:git://github.com/jenkinsci/validating-string-parameter-plugin.git</connection>
-    <developerConnection>scm:git:git@github.com:jenkinsci/validating-string-parameter-plugin.git</developerConnection>
-    <url>http://github.com/jenkinsci/validating-string-parameter-pluginn</url>
-    <tag>HEAD</tag>
-  </scm>
+    <properties>
+        <java.level>8</java.level>
+    </properties>
 
-  <developers>
-    <developer>
-      <id>petehayes</id>
-      <name>Peter Hayes</name>
-      <email>petehayes@gmail.com</email>
-      <timezone>-6</timezone>
-    </developer>
-  </developers>
+    <scm>
+        <connection>scm:git:git://github.com/jenkinsci/validating-string-parameter-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:jenkinsci/validating-string-parameter-plugin.git
+        </developerConnection>
+        <url>http://github.com/jenkinsci/validating-string-parameter-pluginn</url>
+        <tag>HEAD</tag>
+    </scm>
 
+    <developers>
+        <developer>
+            <id>petehayes</id>
+            <name>Peter Hayes</name>
+            <email>petehayes@gmail.com</email>
+            <timezone>-6</timezone>
+        </developer>
+    </developers>
 
-  <repositories>
-    <repository>
-      <id>repo.jenkins-ci.org</id>
-      <url>http://repo.jenkins-ci.org/public/</url>
-    </repository>
-  </repositories>
+    <repositories>
+        <repository>
+            <id>repo.jenkins-ci.org</id>
+            <url>https://repo.jenkins-ci.org/public/</url>
+        </repository>
+    </repositories>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>repo.jenkins-ci.org</id>
-      <url>http://repo.jenkins-ci.org/public/</url>
-    </pluginRepository>
-  </pluginRepositories>
-  
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>2.5.1</version>
-      </plugin>
-    </plugins>
-  </build>
-</project>  
+    <pluginRepositories>
+        <pluginRepository>
+            <id>repo.jenkins-ci.org</id>
+            <url>https://repo.jenkins-ci.org/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <profiles>
+        <profile>
+            <id>Java 8</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <properties>
+                <additionalparam>-Xdoclint:none</additionalparam>
+            </properties>
+        </profile>
+    </profiles>
+</project>
 
 

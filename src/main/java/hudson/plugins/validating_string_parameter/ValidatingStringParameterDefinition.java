@@ -38,6 +38,9 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 /**
  * String based parameter that supports setting a regular expression to validate the
  * user's entered value, giving real-time feedback on the value.
@@ -82,7 +85,14 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
     }
 
     public String getRootUrl() {
-        return Hudson.getInstance().getRootUrl();
+
+        Hudson instance = Hudson.getInstance();
+        if(instance != null){
+            if(instance.getRootUrl() != null){
+                return instance.getRootUrl();
+            }
+        }
+        return "";
     }
 
     @Override
