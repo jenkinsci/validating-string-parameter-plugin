@@ -24,6 +24,7 @@
 package hudson.plugins.validating_string_parameter;
 
 import hudson.Extension;
+import hudson.model.Failure;
 import hudson.model.Hudson;
 import hudson.model.ParameterDefinition;
 import hudson.model.ParameterValue;
@@ -139,6 +140,12 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
     @Override
     public ParameterValue createValue(StaplerRequest req, JSONObject jo) {
         ValidatingStringParameterValue value = req.bindJSON(ValidatingStringParameterValue.class, jo);
+        String req_value = value.getValue();
+        
+        if (!Pattern.matches(regex, req_value)) {
+            throw new Failure("Invalid value for parameter [" + getName() + "] specified: " + req_value);
+        }
+        
         value.setDescription(getDescription());
         value.setRegex(regex);
         return value;
@@ -147,9 +154,13 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
     @Override
     public ParameterValue createValue(StaplerRequest req) {
         String[] value = req.getParameterValues(getName());
+        
         if (value == null || value.length < 1) {
             return getDefaultParameterValue();
         } else {
+            if (!Pattern.matches(regex, value[0])) {
+                throw new Failure("Invalid value for parameter [" + getName() + "] specified: " + value[0]);
+            }
             return new ValidatingStringParameterValue(getName(), value[0], regex, getDescription());
         }
     }
