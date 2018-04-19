@@ -95,7 +95,7 @@ public class ValidatingStringParameterValue extends StringParameterValue {
         if (!super.equals(obj)) {
             return false;
         }
-        if (ValidatingStringParameterValue.class != obj.getClass()) {
+        if (this.getClass() != obj.getClass()) {
             return false;
         }
         ValidatingStringParameterValue other = (ValidatingStringParameterValue) obj;
