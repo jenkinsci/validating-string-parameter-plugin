@@ -75,11 +75,15 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
     }
 
     public String getJsEncodedRegex() {
-        return regex.replace("\\", "\\\\");
+        return regex.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 
     public String getFailedValidationMessage() {
         return failedValidationMessage;
+    }
+
+    public String getJsFailedValidationMessage() {
+        return failedValidationMessage.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 
     public String getRootUrl() {
