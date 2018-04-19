@@ -25,16 +25,19 @@ package hudson.plugins.validating_string_parameter;
 
 import hudson.Extension;
 import hudson.model.Failure;
-import hudson.model.Hudson;
 import hudson.model.ParameterDefinition;
 import hudson.model.ParameterValue;
 import hudson.util.FormValidation;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
 
+import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
@@ -53,6 +56,14 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
     private String defaultValue;
     private String regex;
     private String failedValidationMessage;
+
+    private static Map<String, String> replacements;
+
+    static {
+        replacements = new HashMap<>();
+        replacements.put("\\", "\\\\");
+        replacements.put("\"", "\\\"");
+    }
 
     @DataBoundConstructor
     public ValidatingStringParameterDefinition(String name, String defaultValue, String regex, String failedValidationMessage, String description) {
@@ -75,15 +86,27 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
     }
 
     public String getJsEncodedRegex() {
-        return regex.replace("\\", "\\\\");
+        return jsEscape(regex);
     }
 
     public String getFailedValidationMessage() {
         return failedValidationMessage;
     }
 
+    public String getJsEncodedFailedValidationMessage() {
+        return jsEscape(failedValidationMessage);
+    }
+
+    private String jsEscape(String input) {
+        String res = input;
+        for(String key : replacements.keySet()) {
+            res = res.replace(key, replacements.get(key));
+        }
+        return res;
+    }
+
     public String getRootUrl() {
-        return Hudson.getInstance().getRootUrl();
+        return Jenkins.getInstance().getRootUrl();
     }
 
     @Override
@@ -92,7 +115,7 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
         return v;
     }
 
-    @Extension
+    @Extension @Symbol("validatingString")
     public static class DescriptorImpl extends ParameterDescriptor {
 
         @Override
@@ -106,7 +129,7 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
         }
 
         /**
-         * Chcek the regular expression entered by the user
+         * Check the regular expression entered by the user
          */
         public FormValidation doCheckRegex(@QueryParameter final String value) {
             try {
