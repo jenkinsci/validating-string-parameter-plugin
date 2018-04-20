@@ -99,8 +99,8 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
 
     private String jsEscape(String input) {
         String res = input;
-        for(String key : replacements.keySet()) {
-            res = res.replace(key, replacements.get(key));
+        for(Map.Entry<String,String> entry : replacements.entrySet()) {
+            res = res.replace(entry.getKey(), entry.getValue());
         }
         return res;
     }
