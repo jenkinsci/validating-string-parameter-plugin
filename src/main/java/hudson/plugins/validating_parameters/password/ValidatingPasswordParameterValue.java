@@ -21,35 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package hudson.plugins.validating_string_parameter;
+package hudson.plugins.validating_parameters.password;
 
 import hudson.AbortException;
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
-import hudson.model.StringParameterValue;
+import hudson.model.PasswordParameterValue;
 import hudson.tasks.BuildWrapper;
 import java.io.IOException;
 import java.util.regex.Pattern;
+
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
- * {@link ParameterValue} created from {@link ValidatingStringParameterDefinition}.
+ * {@link PasswordParameterValue} created from {@link ValidatingPasswordParameterDefinition}.
  *
- * @author Peter Hayes
- * @since 1.0
+ * @author Krzysztof Reczek
+ * @since 2.5
  */
-public class ValidatingStringParameterValue extends StringParameterValue {
+public class ValidatingPasswordParameterValue extends PasswordParameterValue {
     private String regex;
 
     @DataBoundConstructor
-    public ValidatingStringParameterValue(String name, String value) {
-        this(name, value, null, null);
-    }
-
-    public ValidatingStringParameterValue(String name, String value, String regex, String description) {
+    public ValidatingPasswordParameterValue(String name, String value, String regex, String description) {
         super(name, value, description);
         this.regex = regex;
+    }
+
+    public ValidatingPasswordParameterValue(String name, String value) {
+        this(name, value, null, null);
     }
 
     public String getRegex() {
@@ -60,18 +61,15 @@ public class ValidatingStringParameterValue extends StringParameterValue {
         this.regex = regex;
     }
 
-    public String getValue() {
-        return value;
-    }
-
     @Override
     public BuildWrapper createBuildWrapper(AbstractBuild<?, ?> build) {
-        if (!Pattern.matches(regex, value)) {
+        if (!Pattern.matches(regex, getValue().getPlainText())) {
             // abort the build within BuildWrapper
             return new BuildWrapper() {
                 @Override
-                public Environment setUp(AbstractBuild build, Launcher launcher, BuildListener listener) throws IOException, InterruptedException {
-                    throw new AbortException("Invalid value for parameter [" + getName() + "] specified: " + value);
+                public Environment setUp(AbstractBuild b, Launcher l, BuildListener bl) throws IOException {
+                    String message = String.format("Invalid value for parameter [%s] specified", getName());
+                    throw new AbortException(message);
                 }
             };
         } else {
@@ -98,19 +96,12 @@ public class ValidatingStringParameterValue extends StringParameterValue {
         if (this.getClass() != obj.getClass()) {
             return false;
         }
-        ValidatingStringParameterValue other = (ValidatingStringParameterValue) obj;
-        if (value == null) {
-            if (other.value != null) {
-                return false;
-            }
-        } else if (!value.equals(other.value)) {
-            return false;
-        }
-        return true;
+        ValidatingPasswordParameterValue other = (ValidatingPasswordParameterValue) obj;
+        return this.getValue().equals(other.getValue());
     }
 
     @Override
     public String toString() {
-        return "(ValidatingStringParameterValue) " + getName() + "='" + value + "'";
+        return "(ValidatingPasswordParameterValue) " + getName() + "='" + getValue() + "'";
     }
 }

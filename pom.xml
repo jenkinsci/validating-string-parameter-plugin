@@ -6,14 +6,18 @@
         <artifactId>plugin</artifactId>
         <version>3.5</version>
     </parent>
+
     <artifactId>validating-string-parameter</artifactId>
     <packaging>hpi</packaging>
     <name>Validating String Parameter Plugin</name>
     <version>2.5-SNAPSHOT</version>
     <url>http://wiki.jenkins-ci.org/display/JENKINS/Validating+String+Parameter+Plugin</url>
-
+ 
     <properties>
         <java.level>8</java.level>
+        <mockito.version>2.8.9</mockito.version>
+        <assertj.version>3.13.2</assertj.version>
+        <powermock.version>1.7.4</powermock.version>
     </properties>
 
     <scm>
@@ -28,11 +32,38 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito2</artifactId>
+            <version>${powermock.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    
     <developers>
         <developer>
             <id>petehayes</id>
@@ -40,7 +71,14 @@
             <email>petehayes@gmail.com</email>
             <timezone>-6</timezone>
         </developer>
-    </developers>
+
+        <developer>
+            <id>krzysztofreczek</id>
+            <name>Krzysztof Reczek</name>
+            <email>reczek.krzysztof@gmail.com</email>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>   
 
     <repositories>
         <repository>
