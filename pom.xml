@@ -20,7 +20,7 @@
         <connection>scm:git:git://github.com/jenkinsci/validating-string-parameter-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/validating-string-parameter-plugin.git
         </developerConnection>
-        <url>http://github.com/jenkinsci/validating-string-parameter-pluginn</url>
+        <url>http://github.com/jenkinsci/validating-string-parameter-plugin</url>
         <tag>HEAD</tag>
     </scm>
 
