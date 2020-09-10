@@ -28,8 +28,8 @@ THE SOFTWARE.
 	
 	<j:set var="escapeEntryTitleAndDescription" value="false"/>
 	
-	<f:entry title="${it.name}" description="${it.description}">
-            <div tooltip="Regular expression = ${it.regex}">
+	<f:entry title="${h.xmlEscape(it.name)}" description="${it.formattedDescription}">
+            <div tooltip="Regular expression = ${h.xmlEscape(it.regex)}">
                 <f:textbox name="value" value="${it.value}" readonly="true" />
             </div>
 	</f:entry>

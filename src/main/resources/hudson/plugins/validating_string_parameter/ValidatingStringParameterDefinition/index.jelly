@@ -28,7 +28,7 @@ THE SOFTWARE.
 	
 	<j:set var="escapeEntryTitleAndDescription" value="false"/>
 	
-	<f:entry title="${it.name}" description="${it.formattedDescription}">
+	<f:entry title="${h.xmlEscape(it.name)}" description="${it.formattedDescription}">
 		<div name="parameter" description="${it.formattedDescription}">
 			<input type="hidden" name="name" value="${it.name}" />
 			<f:textbox name="value" value="${it.defaultValue}" 
