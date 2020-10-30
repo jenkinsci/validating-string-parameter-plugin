@@ -66,7 +66,7 @@ public class ValidatingStringParameterValue extends StringParameterValue {
 
     @Override
     public BuildWrapper createBuildWrapper(AbstractBuild<?, ?> build) {
-        if (!Pattern.matches(regex, value)) {
+        if (regex != null && !Pattern.matches(regex, value)) {
             // abort the build within BuildWrapper
             return new BuildWrapper() {
                 @Override
