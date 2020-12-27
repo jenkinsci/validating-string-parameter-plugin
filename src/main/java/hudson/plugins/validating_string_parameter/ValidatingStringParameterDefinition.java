@@ -57,14 +57,6 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
     private String regex;
     private String failedValidationMessage;
 
-    private static Map<String, String> replacements;
-
-    static {
-        replacements = new HashMap<>();
-        replacements.put("\\", "\\\\");
-        replacements.put("\"", "\\\"");
-    }
-
     @DataBoundConstructor
     public ValidatingStringParameterDefinition(String name, String defaultValue, String regex, String failedValidationMessage, String description) {
         super(name, description);
@@ -85,24 +77,8 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
         return regex;
     }
 
-    public String getJsEncodedRegex() {
-        return jsEscape(regex);
-    }
-
     public String getFailedValidationMessage() {
         return failedValidationMessage;
-    }
-
-    public String getJsEncodedFailedValidationMessage() {
-        return jsEscape(failedValidationMessage);
-    }
-
-    private String jsEscape(String input) {
-        String res = input;
-        for(Map.Entry<String,String> entry : replacements.entrySet()) {
-            res = res.replace(entry.getKey(), entry.getValue());
-        }
-        return res;
     }
 
     public String getRootUrl() {
