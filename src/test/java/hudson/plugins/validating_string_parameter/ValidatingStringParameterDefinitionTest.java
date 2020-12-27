@@ -1,5 +1,6 @@
 package hudson.plugins.validating_string_parameter;
 
+import hudson.Functions;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -21,7 +22,7 @@ public class ValidatingStringParameterDefinitionTest {
         assertEquals("DUMMY", d.getName());
         assertEquals("foo", d.getDefaultValue());
         assertEquals("\".+", d.getRegex());
-        assertEquals("\\\\\".+", d.getJsEncodedRegex());
+        assertEquals("\\\".+", Functions.jsStringEscape(d.getRegex()));
         assertEquals("Your parameter does not match the regular expression!", d.getFailedValidationMessage());
         assertEquals("Some parameter", d.getDescription());
     }
