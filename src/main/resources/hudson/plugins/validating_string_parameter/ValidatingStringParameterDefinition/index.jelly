@@ -31,8 +31,8 @@ THE SOFTWARE.
 	<f:entry title="${h.xmlEscape(it.name)}" description="${it.formattedDescription}">
 		<div name="parameter" description="${it.formattedDescription}">
 			<input type="hidden" name="name" value="${it.name}" />
-			<f:textbox name="value" value="${it.defaultValue}" 
-				checkUrl="'${rootURL}/descriptorByName/hudson.plugins.validating_string_parameter.ValidatingStringParameterDefinition/validate?regex='+encodeURIComponent(&quot;${it.jsEncodedRegex}&quot;)+'&amp;failedValidationMessage='+encodeURIComponent(&quot;${it.jsEncodedFailedValidationMessage}&quot;)+'&amp;value='+encodeURIComponent(this.value)"/>
+			<f:textbox name="value" value="${it.defaultValue}"
+				checkUrl="'${rootURL}/descriptorByName/hudson.plugins.validating_string_parameter.ValidatingStringParameterDefinition/validate?regex='+encodeURIComponent('${h.jsStringEscape(it.regex)}')+'&amp;failedValidationMessage='+encodeURIComponent('${h.jsStringEscape(it.failedValidationMessage)}')+'&amp;value='+encodeURIComponent(this.value)"/>
 		</div>
 	</f:entry>
 </j:jelly>
