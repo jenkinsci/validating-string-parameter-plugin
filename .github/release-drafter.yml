@@ -1,0 +1,3 @@
+_extends: .github
+name-template: v$NEXT_MINOR_VERSION 🌈
+tag-template: validating-string-parameter-$NEXT_MINOR_VERSION

@@ -23,12 +23,15 @@
  */
 package hudson.plugins.validating_string_parameter;
 
+import hudson.AbortException;
 import hudson.Extension;
+import hudson.cli.CLICommand;
 import hudson.model.Failure;
 import hudson.model.ParameterDefinition;
 import hudson.model.ParameterValue;
 import hudson.util.FormValidation;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -161,6 +164,18 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
                 throw new Failure("Invalid value for parameter [" + getName() + "] specified: " + value[0]);
             }
             return new ValidatingStringParameterValue(getName(), value[0], regex, getDescription());
+        }
+    }
+
+    @Override
+    public ParameterValue createValue(CLICommand command, String value) throws IOException, InterruptedException {
+        if (value == null || value.length() == 0) {
+            return getDefaultParameterValue();
+        } else {
+            if (!Pattern.matches(regex, value)) {
+                throw new AbortException("Invalid value for parameter [" + getName() + "] specified: " + value);
+            }
+            return new ValidatingStringParameterValue(getName(), value, regex, getDescription());
         }
     }
 }
