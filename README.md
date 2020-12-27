@@ -1,5 +1,9 @@
 # Validating String Parameter Plugin
 
+[![Jenkins](https://ci.jenkins.io/job/Plugins/job/validating-string-parameter-plugin/job/master/badge/icon)](https://ci.jenkins.io/job/Plugins/job/validating-string-parameter-plugin/job/master/)
+[![Jenkins Plugin](https://img.shields.io/jenkins/plugin/v/validating-string-parameter.svg)](https://plugins.jenkins.io/validating-string-parameter)
+[![GitHub release](https://img.shields.io/github/release/jenkinsci/validating-string-parameter-plugin.svg?label=changelog)](https://github.com/jenkinsci/validating-string-parameter-plugin/releases/latest)
+
 The validating string parameter plugin contributes a new parameter type
 to Jenkins that supports regular expression validation of the user's
 entered parameter.
