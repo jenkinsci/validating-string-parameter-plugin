@@ -10,7 +10,7 @@
     <packaging>hpi</packaging>
     <name>Validating String Parameter Plugin</name>
     <version>2.6-SNAPSHOT</version>
-    <url>http://wiki.jenkins-ci.org/display/JENKINS/Validating+String+Parameter+Plugin</url>
+    <url>https://github.com/jenkinsci/validating-string-parameter-plugin</url>
 
     <properties>
         <java.level>8</java.level>
