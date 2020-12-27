@@ -1,5 +1,7 @@
 # Version History
 
+### Future releases can be found [here](https://github.com/jenkinsci/validating-string-parameter-plugin/releases)
+
 ## Version 2.4 (20-Apr-2018)
 
 - Fixes Pipeline compatibility
