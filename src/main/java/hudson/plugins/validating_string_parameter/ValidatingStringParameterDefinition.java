@@ -30,20 +30,16 @@ import hudson.model.Failure;
 import hudson.model.ParameterDefinition;
 import hudson.model.ParameterValue;
 import hudson.util.FormValidation;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
-
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
+
+import java.io.IOException;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * String based parameter that supports setting a regular expression to validate the
@@ -56,9 +52,9 @@ import org.kohsuke.stapler.StaplerRequest;
 public class ValidatingStringParameterDefinition extends ParameterDefinition {
 
     private static final long serialVersionUID = 1L;
-    private String defaultValue;
-    private String regex;
-    private String failedValidationMessage;
+    private final String defaultValue;
+    private final String regex;
+    private final String failedValidationMessage;
 
     @DataBoundConstructor
     public ValidatingStringParameterDefinition(String name, String defaultValue, String regex, String failedValidationMessage, String description) {
@@ -85,7 +81,7 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
     }
 
     public String getRootUrl() {
-        return Jenkins.getInstance().getRootUrl();
+        return Jenkins.get().getRootUrl();
     }
 
     @Override
