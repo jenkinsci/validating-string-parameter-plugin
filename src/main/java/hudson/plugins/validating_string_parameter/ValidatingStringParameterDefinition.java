@@ -47,7 +47,7 @@ import java.util.regex.PatternSyntaxException;
  * 
  * @author Peter Hayes
  * @since 1.0
- * @see {@link ParameterDefinition}
+ * @see ParameterDefinition
  */
 public class ValidatingStringParameterDefinition extends ParameterDefinition {
 
