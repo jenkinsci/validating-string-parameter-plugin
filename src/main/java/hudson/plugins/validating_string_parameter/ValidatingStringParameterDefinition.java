@@ -98,11 +98,6 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
             return "Validating String Parameter";
         }
 
-        @Override
-        public String getHelpFile() {
-            return "/plugin/validating-string-parameter/help.html";
-        }
-
         /**
          * Check the regular expression entered by the user
          */

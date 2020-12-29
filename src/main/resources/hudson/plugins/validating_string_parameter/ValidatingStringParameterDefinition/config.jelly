@@ -23,22 +23,20 @@ THE SOFTWARE.
 -->
 
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
-	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
-	xmlns:i="jelly:fmt" xmlns:p="/lib/hudson/project">
-    <f:entry title="${%Name}" help="/help/parameter/name.html">
-		<f:textbox field="name" />
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+    <f:entry title="${%Name}" field="name">
+		<f:textbox />
 	</f:entry>
-	<f:entry title="${%Default Value}" help="/help/parameter/string-default.html">
-		<f:textbox field="defaultValue" />
+	<f:entry title="${%Default Value}" field="defaultValue">
+		<f:textbox />
 	</f:entry>
-	<f:entry title="${%Regular Expression}" help="/plugin/validating-string-parameter/help-regex.html">
-		<f:textbox field="regex"/>
+	<f:entry title="${%Regular Expression}" field="regex">
+		<f:textbox />
 	</f:entry>
-	<f:entry title="${%Failed Validation Message}" help="/plugin/validating-string-parameter/help-failedValidationMessage.html">
-		<f:textbox field="failedValidationMessage"/>
+	<f:entry title="${%Failed Validation Message}" field="failedValidationMessage">
+		<f:textbox />
 	</f:entry>
-    <f:entry title="${%Description}" help="/help/parameter/description.html">
-        <f:textarea field="description" codemirror-mode="${app.markupFormatter.codeMirrorMode}" codemirror-config="${app.markupFormatter.codeMirrorConfig}" previewEndpoint="/markupFormatter/previewDescription" />
+    <f:entry title="${%Description}" field="description">
+        <f:textarea codemirror-mode="${app.markupFormatter.codeMirrorMode}" codemirror-config="${app.markupFormatter.codeMirrorConfig}" previewEndpoint="/markupFormatter/previewDescription" />
     </f:entry>
 </j:jelly>
