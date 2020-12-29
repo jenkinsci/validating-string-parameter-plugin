@@ -18,13 +18,13 @@
     </properties>
     
     <developers>
-		<developer>
-			<id>raihaan</id>
-			<name>Raihaan Shouhell</name>
-			<email>raihaanhimself@gmail.com</email>
-			<timezone>+8</timezone>
-		</developer>
-	</developers>
+        <developer>
+            <id>raihaan</id>
+            <name>Raihaan Shouhell</name>
+            <email>raihaanhimself@gmail.com</email>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
 
     <scm>
         <connection>scm:git:git://github.com/jenkinsci/validating-string-parameter-plugin.git</connection>
