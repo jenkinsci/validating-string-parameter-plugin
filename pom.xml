@@ -13,7 +13,6 @@
     <url>https://github.com/jenkinsci/validating-string-parameter-plugin</url>
 
     <properties>
-        <java.level>8</java.level>
         <jenkins.version>2.222.4</jenkins.version>
     </properties>
     
