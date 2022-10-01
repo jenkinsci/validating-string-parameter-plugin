@@ -3,6 +3,7 @@ package hudson.plugins.validating_string_parameter;
 import hudson.AbortException;
 import hudson.cli.CLICommand;
 import hudson.model.Failure;
+import hudson.util.FormValidation;
 import net.sf.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,11 +34,12 @@ public class ValidatingStringParameterDefinitionTest {
         assertEquals("Your parameter does not match the regular expression!", d.getFailedValidationMessage());
         assertEquals("Some parameter", d.getDescription());
         Mockito.when(req.getParameterValues("DUMMY")).thenReturn(new String[]{"test"});
-        assertEquals(new ValidatingStringParameterValue("DUMMY", "test"), d.createValue(req));
+        ValidatingStringParameterValue v1 = new ValidatingStringParameterValue("DUMMY", "test", ".+", "");
+        assertEquals(v1, d.createValue(req));
         JSONObject jo = new JSONObject();
-        ValidatingStringParameterValue v = new ValidatingStringParameterValue("DUMMY", "test2");
-        Mockito.when(req.bindJSON(ValidatingStringParameterValue.class, jo)).thenReturn(v);
-        assertEquals(v, d.createValue(req, jo));
+        ValidatingStringParameterValue v2 = new ValidatingStringParameterValue("DUMMY", "test2");
+        Mockito.when(req.bindJSON(ValidatingStringParameterValue.class, jo)).thenReturn(v2);
+        assertEquals(v2, d.createValue(req, jo));
     }
 
     @Test(expected = Failure.class)
@@ -61,7 +63,9 @@ public class ValidatingStringParameterDefinitionTest {
         ValidatingStringParameterDefinition d = new ValidatingStringParameterDefinition("DUMMY", "foo", "\".+", "Your parameter does not match the regular expression!", "Some parameter");
         assertEquals(d.getDefaultParameterValue(),d.createValue(cliCommand, null));
         Mockito.verifyNoInteractions(cliCommand);
-        assertEquals(new ValidatingStringParameterValue("DUMMY", "\"hello"), d.createValue(cliCommand, "\"hello"));
+        ValidatingStringParameterValue v = new ValidatingStringParameterValue("DUMMY", "\"hello");
+        v.setRegex("\".+");
+        assertEquals(v, d.createValue(cliCommand, "\"hello"));
         Mockito.verifyNoInteractions(cliCommand);
     }
 
@@ -70,5 +74,19 @@ public class ValidatingStringParameterDefinitionTest {
         ValidatingStringParameterDefinition d = new ValidatingStringParameterDefinition("DUMMY", "foo", "\".+", "Your parameter does not match the regular expression!", "Some parameter");
         d.createValue(cliCommand, "hello");
         Mockito.verifyNoInteractions(cliCommand);
+    }
+
+    @Test
+    public void regexCheck() {
+        ValidatingStringParameterDefinition.DescriptorImpl d = new ValidatingStringParameterDefinition.DescriptorImpl();
+        assertEquals(FormValidation.Kind.OK, d.doCheckRegex("abc").kind);
+        assertEquals(FormValidation.Kind.ERROR, d.doCheckRegex("(dddd").kind);
+    }
+
+    @Test
+    public void validationCheck() {
+        ValidatingStringParameterDefinition.DescriptorImpl d = new ValidatingStringParameterDefinition.DescriptorImpl();
+        assertEquals(FormValidation.Kind.OK, d.doValidate("abc", "failed", "abc").kind);
+        assertEquals(FormValidation.Kind.ERROR, d.doValidate("abc", "failed", "").kind);
     }
 }
