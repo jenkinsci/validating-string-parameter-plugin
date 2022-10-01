@@ -36,6 +36,7 @@ import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.verb.POST;
 
 import java.io.IOException;
 import java.util.regex.Pattern;
@@ -101,6 +102,7 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
         /**
          * Check the regular expression entered by the user
          */
+        @POST
         public FormValidation doCheckRegex(@QueryParameter final String value) {
             try {
                 Pattern.compile(value);
@@ -113,6 +115,7 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
         /**
          * Called to validate the passed user entered value against the configured regular expression.
          */
+        @POST
         public FormValidation doValidate(@QueryParameter("regex") String regex,
                 @QueryParameter("failedValidationMessage") final String failedValidationMessage,
                 @QueryParameter("value") final String value) {
