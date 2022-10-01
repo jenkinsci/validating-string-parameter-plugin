@@ -23,6 +23,7 @@
  */
 package hudson.plugins.validating_string_parameter;
 
+import com.google.common.base.Objects;
 import hudson.AbortException;
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
@@ -61,10 +62,6 @@ public class ValidatingStringParameterValue extends StringParameterValue {
         this.regex = regex;
     }
 
-    public String getValue() {
-        return value;
-    }
-
     @Override
     public BuildWrapper createBuildWrapper(AbstractBuild<?, ?> build) {
         if (regex != null && !Pattern.matches(regex, value)) {
@@ -82,10 +79,7 @@ public class ValidatingStringParameterValue extends StringParameterValue {
 
     @Override
     public int hashCode() {
-        final int prime = 71;
-        int result = super.hashCode();
-        result = prime * result;
-        return result;
+        return Objects.hashCode(super.hashCode(), regex);
     }
 
     @Override
@@ -100,10 +94,10 @@ public class ValidatingStringParameterValue extends StringParameterValue {
             return false;
         }
         ValidatingStringParameterValue other = (ValidatingStringParameterValue) obj;
-        if (value == null) {
-            return other.value == null;
+        if (regex == null) {
+            return other.regex == null;
         } else {
-            return value.equals(other.value);
+            return regex.equals(other.regex);
         }
     }
 
