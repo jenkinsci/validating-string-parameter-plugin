@@ -33,3 +33,29 @@ Once the entered value meets the configured regular expression, the
 error message is no longer displayed.
 
 ![](docs/images/build-success.PNG)
+
+## Pipeline Examples
+
+```groovy
+pipeline {
+    agent any
+
+    parameters {
+        validatingString(
+            name: 'param1', 
+            defaultValue: '', 
+            regex: /^[0-9]+$/, 
+            failedValidationMessage: '', 
+            description: 'Numbers only parameter example'
+        )
+    }
+
+    stages {
+        stage("Check") {
+            steps {
+                echo "${params.param1}"
+            }
+        }
+    }
+}
+```
