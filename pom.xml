@@ -13,7 +13,7 @@
     <url>https://github.com/jenkinsci/validating-string-parameter-plugin</url>
 
     <properties>
-        <jenkins.version>2.387.3</jenkins.version>
+        <jenkins.version>2.440.3</jenkins.version>
         <changelist>999999-SNAPSHOT</changelist>
     </properties>
     
@@ -75,8 +75,8 @@
         <dependencies>
             <dependency>
                 <groupId>io.jenkins.tools.bom</groupId>
-                <artifactId>bom-2.387.x</artifactId>
-                <version>2543.vfb_1a_5fb_9496d</version>
+                <artifactId>bom-2.440.x</artifactId>
+                <version>3234.v5ca_5154341ef</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
