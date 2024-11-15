@@ -25,12 +25,15 @@ THE SOFTWARE.
 <j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
 	
 	<j:set var="escapeEntryTitleAndDescription" value="false"/>
-	
-	<f:entry title="${h.xmlEscape(it.name)}" description="${it.formattedDescription}">
-		<div name="parameter" description="${it.formattedDescription}">
-			<input type="hidden" name="name" value="${it.name}" />
-			<f:textbox name="value" value="${it.defaultValue}"
-				checkUrl="'${rootURL}/descriptorByName/hudson.plugins.validating_string_parameter.ValidatingStringParameterDefinition/validate?regex='+encodeURIComponent('${h.jsStringEscape(it.regex)}')+'&amp;failedValidationMessage='+encodeURIComponent('${h.jsStringEscape(it.failedValidationMessage)}')+'&amp;value='+encodeURIComponent(this.value)"/>
-		</div>
+
+	<f:invisibleEntry>
+		<f:textbox field="regex" value="${it.regex}"/>
+	</f:invisibleEntry>
+	<f:invisibleEntry>
+		<f:textbox field="failedValidationMessage" value="${it.failedValidationMessage}"/>
+	</f:invisibleEntry>
+	<f:entry title="${h.xmlEscape(it.name)}" description="${it.formattedDescription}" field="defaultValue">
+		<f:textbox value="${it.defaultValue}" checkUrl="${it.descriptor.descriptorFullUrl}/validate"
+				   checkDependsOn="regex failedValidationMessage"/>
 	</f:entry>
 </j:jelly>
