@@ -116,9 +116,8 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
          * Called to validate the passed user entered value against the configured regular expression.
          */
         @POST
-        public FormValidation doValidate(@QueryParameter("regex") String regex,
-                @QueryParameter("failedValidationMessage") final String failedValidationMessage,
-                @QueryParameter("value") final String value) {
+        public FormValidation doValidate(@QueryParameter String regex, @QueryParameter final String failedValidationMessage,
+                                         @QueryParameter final String value) {
             try {
                 if (Pattern.matches(regex, value)) {
                     return FormValidation.ok();
