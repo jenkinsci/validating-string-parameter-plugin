@@ -32,8 +32,11 @@ THE SOFTWARE.
 	<f:invisibleEntry>
 		<f:textbox field="failedValidationMessage" value="${it.failedValidationMessage}"/>
 	</f:invisibleEntry>
-	<f:entry title="${h.xmlEscape(it.name)}" description="${it.formattedDescription}" field="defaultValue">
-		<f:textbox value="${it.defaultValue}" checkUrl="${it.descriptor.descriptorFullUrl}/validate"
-				   checkDependsOn="regex failedValidationMessage"/>
+	<f:entry title="${h.xmlEscape(it.name)}" description="${it.formattedDescription}">
+		<div name="parameter" description="${it.formattedDescription}">
+			<input type="hidden" name="name" value="${it.name}"/>
+			<f:textbox name="value" value="${it.defaultValue}" checkUrl="${it.descriptor.descriptorFullUrl}/validate"
+					   checkDependsOn="../regex ../failedValidationMessage"/>
+		</div>
 	</f:entry>
 </j:jelly>
