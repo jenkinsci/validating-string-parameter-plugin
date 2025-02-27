@@ -35,7 +35,7 @@ import net.sf.json.JSONObject;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 import org.kohsuke.stapler.verb.POST;
 
 import java.io.IOException;
@@ -133,7 +133,7 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
     }
 
     @Override
-    public ParameterValue createValue(StaplerRequest req, JSONObject jo) {
+    public ParameterValue createValue(StaplerRequest2 req, JSONObject jo) {
         ValidatingStringParameterValue value = req.bindJSON(ValidatingStringParameterValue.class, jo);
         String req_value = value.getValue();
         
@@ -147,7 +147,7 @@ public class ValidatingStringParameterDefinition extends ParameterDefinition {
     }
 
     @Override
-    public ParameterValue createValue(StaplerRequest req) {
+    public ParameterValue createValue(StaplerRequest2 req) {
         String[] value = req.getParameterValues(getName());
         
         if (value == null || value.length < 1) {

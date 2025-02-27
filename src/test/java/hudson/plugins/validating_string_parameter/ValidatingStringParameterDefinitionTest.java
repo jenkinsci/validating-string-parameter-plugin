@@ -7,7 +7,7 @@ import hudson.util.FormValidation;
 import net.sf.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 public class ValidatingStringParameterDefinitionTest {
 
     @Mock
-    private StaplerRequest req;
+    private StaplerRequest2 req;
 
     @Mock
     private CLICommand cliCommand;
