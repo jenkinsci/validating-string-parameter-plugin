@@ -5,19 +5,20 @@ import hudson.cli.CLICommand;
 import hudson.model.Failure;
 import hudson.util.FormValidation;
 import net.sf.json.JSONObject;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.kohsuke.stapler.StaplerRequest2;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@RunWith(MockitoJUnitRunner.class)
-public class ValidatingStringParameterDefinitionTest {
+@ExtendWith(MockitoExtension.class)
+class ValidatingStringParameterDefinitionTest {
 
     @Mock
     private StaplerRequest2 req;
@@ -26,7 +27,7 @@ public class ValidatingStringParameterDefinitionTest {
     private CLICommand cliCommand;
 
     @Test
-    public void simpleConfiguration() throws Exception {
+    void simpleConfiguration() {
         ValidatingStringParameterDefinition d = new ValidatingStringParameterDefinition("DUMMY", "foo", ".+", "Your parameter does not match the regular expression!", "Some parameter");
         assertEquals("DUMMY", d.getName());
         assertEquals("foo", d.getDefaultValue());
@@ -42,24 +43,24 @@ public class ValidatingStringParameterDefinitionTest {
         assertEquals(v2, d.createValue(req, jo));
     }
 
-    @Test(expected = Failure.class)
-    public void failedCreateValueStapler() {
+    @Test
+    void failedCreateValueStapler() {
         ValidatingStringParameterDefinition d = new ValidatingStringParameterDefinition("DUMMY", "foo", ".+", "Your parameter does not match the regular expression!", "Some parameter");
         Mockito.when(req.getParameterValues("DUMMY")).thenReturn(new String[]{""});
-        d.createValue(req);
+        assertThrows(Failure.class, () -> d.createValue(req));
     }
 
-    @Test(expected = Failure.class)
-    public void failedCreateValueJSONObject() {
+    @Test
+    void failedCreateValueJSONObject() {
         ValidatingStringParameterDefinition d = new ValidatingStringParameterDefinition("DUMMY", "foo", ".+", "Your parameter does not match the regular expression!", "Some parameter");
         ValidatingStringParameterValue v = new ValidatingStringParameterValue("DUMMY", "");
         JSONObject jo = new JSONObject();
         Mockito.when(req.bindJSON(ValidatingStringParameterValue.class, jo)).thenReturn(v);
-        d.createValue(req, jo);
+        assertThrows(Failure.class, () -> d.createValue(req, jo));
     }
 
     @Test
-    public void cliCommand() throws IOException, InterruptedException {
+    void cliCommand() throws IOException, InterruptedException {
         ValidatingStringParameterDefinition d = new ValidatingStringParameterDefinition("DUMMY", "foo", "\".+", "Your parameter does not match the regular expression!", "Some parameter");
         assertEquals(d.getDefaultParameterValue(),d.createValue(cliCommand, null));
         Mockito.verifyNoInteractions(cliCommand);
@@ -69,22 +70,22 @@ public class ValidatingStringParameterDefinitionTest {
         Mockito.verifyNoInteractions(cliCommand);
     }
 
-    @Test(expected = AbortException.class)
-    public void cliCommandFailure() throws IOException, InterruptedException {
+    @Test
+    void cliCommandFailure() {
         ValidatingStringParameterDefinition d = new ValidatingStringParameterDefinition("DUMMY", "foo", "\".+", "Your parameter does not match the regular expression!", "Some parameter");
-        d.createValue(cliCommand, "hello");
+        assertThrows(AbortException.class, () -> d.createValue(cliCommand, "hello"));
         Mockito.verifyNoInteractions(cliCommand);
     }
 
     @Test
-    public void regexCheck() {
+    void regexCheck() {
         ValidatingStringParameterDefinition.DescriptorImpl d = new ValidatingStringParameterDefinition.DescriptorImpl();
         assertEquals(FormValidation.Kind.OK, d.doCheckRegex("abc").kind);
         assertEquals(FormValidation.Kind.ERROR, d.doCheckRegex("(dddd").kind);
     }
 
     @Test
-    public void validationCheck() {
+    void validationCheck() {
         ValidatingStringParameterDefinition.DescriptorImpl d = new ValidatingStringParameterDefinition.DescriptorImpl();
         assertEquals(FormValidation.Kind.OK, d.doValidate("abc", "failed", "abc").kind);
         assertEquals(FormValidation.Kind.ERROR, d.doValidate("abc", "failed", "").kind);

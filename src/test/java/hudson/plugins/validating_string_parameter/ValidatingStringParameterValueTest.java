@@ -1,16 +1,16 @@
 package hudson.plugins.validating_string_parameter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class ValidatingStringParameterValueTest {
+class ValidatingStringParameterValueTest {
 
     @Test
-    public void equals() {
+    void equals() {
         ValidatingStringParameterValue v = new ValidatingStringParameterValue("DUMMY", "VALUE");
         assertEquals(v, v);
         ValidatingStringParameterValue v2 = new ValidatingStringParameterValue("DUMMY", "VALUE");
@@ -25,7 +25,7 @@ public class ValidatingStringParameterValueTest {
     }
 
     @Test
-    public void regex() {
+    void regex() {
         ValidatingStringParameterValue v = new ValidatingStringParameterValue("DUMMY", "VALUE");
         String regex = "FAKE_REGEX";
         v.setRegex(regex);
@@ -33,7 +33,7 @@ public class ValidatingStringParameterValueTest {
     }
 
     @Test
-    public void buildWrapper() {
+    void buildWrapper() {
         ValidatingStringParameterValue v = new ValidatingStringParameterValue("DUMMY", "VALUE");
         assertNull(v.createBuildWrapper(null));
         v.setRegex("abc");
