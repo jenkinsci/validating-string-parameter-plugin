@@ -1,6 +1,6 @@
 # Validating String Parameter Plugin
 
-[![Jenkins](https://ci.jenkins.io/job/Plugins/job/validating-string-parameter-plugin/job/master/badge/icon)](https://ci.jenkins.io/job/Plugins/job/validating-string-parameter-plugin/job/master/)
+[![Jenkins](https://ci.jenkins.io/buildStatus/icon?job=Plugins%2Fvalidating-string-parameter-plugin%2Fmaster)](https://ci.jenkins.io/job/Plugins/job/validating-string-parameter-plugin/job/master/)
 [![Jenkins Plugin](https://img.shields.io/jenkins/plugin/v/validating-string-parameter.svg)](https://plugins.jenkins.io/validating-string-parameter)
 [![GitHub release](https://img.shields.io/github/release/jenkinsci/validating-string-parameter-plugin.svg?label=changelog)](https://github.com/jenkinsci/validating-string-parameter-plugin/releases/latest)
 
